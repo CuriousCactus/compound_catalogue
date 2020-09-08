@@ -20,9 +20,11 @@ from django.contrib import admin
 from django.urls import include
 from django.urls import path
 from django.views.generic import RedirectView
+from graphene_django.views import GraphQLView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('catalogue/', include('compound_catalogue_app.urls')),
-    path('', RedirectView.as_view(url='catalogue/'))
+    path('', RedirectView.as_view(url='catalogue/')),
+    path('graphql/', GraphQLView.as_view(graphiql=True))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  # Not the best way to do this
