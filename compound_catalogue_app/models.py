@@ -13,7 +13,6 @@ class Compound(models.Model):
     molecular_formula = models.CharField(max_length=100, help_text='Enter the molecular formula')
     num_rings = models.IntegerField()
     image = models.CharField(max_length=1000, help_text='Enter the image path')
-    assay_results = models.TextField(max_length=1000, default='', help_text='Enter the assay results')
 
 
     def __str__(self):
@@ -44,8 +43,3 @@ class AssayResult(models.Model):
     def get_absolute_url(self):
         """Returns the url to access a detail record for this compound."""
         return reverse('result-detail', args=[str(self.id)])
-
-
-
-f = open('compounds.json')
-data = json.load(f)

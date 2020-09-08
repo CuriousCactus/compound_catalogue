@@ -20,5 +20,4 @@ class Command(BaseCommand):
             for assay_result in assay_result_list:
                 assay_result['pk'] = assay_result['result_id']
                 assay_result['compound'] = compound_object[0]
-                print(assay_result)
                 AssayResult.objects.get_or_create(pk=assay_result['pk'], defaults=assay_result)

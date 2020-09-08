@@ -1,4 +1,5 @@
-*/__pycache__/
+__pycache__/
 *.py[cod]
 images/
 Code Challenge Instructions.pdf
+compound_catalogue_db
