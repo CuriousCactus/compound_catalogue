@@ -31,10 +31,16 @@ https://open-babel.readthedocs.io/en/latest/UseTheLibrary/PythonDoc.html
 Which is the best drug for my protein?
 Can I see if there are any predictors for binding?
 Calculate more properties of molecules? H bond donors?
+For larger datasets, should sorting and pagination be done in the backend?
 
 # Tasks
 
-Get table headers from backend
-Get all data for compound from backend
 Get assay data from backend
 Show assay data in dropdown in table
+IDs are duplicated (id is strings, compound_id is integers)
+Decide if cells should be displayed programmatically or written out by hand
+Order of columns could come from query, or a column order array in table.js
+Make it look prettier
+Linting
+Compiled css
+Document installation!

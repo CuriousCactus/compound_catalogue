@@ -6,6 +6,16 @@ import TableRow from '@material-ui/core/TableRow';
 export function CompoundTableBody(props) {
   const { tableData } = props;
 
+  // Create an array with key: id, value: actual path to image
+  const reqImages = require.context('../images/', true, /\.png$/)
+  const images = reqImages.keys().reduce(
+    (images, path) => {
+      const key = path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.'))
+      images[key] = reqImages(path)
+      return images
+    }, {}
+  )
+
   return (
     <TableBody>
       {tableData.map(({id, compound_id, smiles, molecular_weight, ALogP, molecular_formula, num_rings, image }) => (
@@ -17,7 +27,7 @@ export function CompoundTableBody(props) {
           <TableCell>{ALogP}</TableCell>
           <TableCell>{molecular_formula}</TableCell>
           <TableCell>{num_rings}</TableCell>
-          <TableCell>{image}</TableCell>
+          <TableCell><img src={images[id]} alt={molecular_formula} /></TableCell>
         </TableRow>
       ))}
     </TableBody>
