@@ -32,6 +32,8 @@ export function CompoundTable() {
 
   if (loading) return <p>Loading...</p>;
 
+  console.log(data)
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
