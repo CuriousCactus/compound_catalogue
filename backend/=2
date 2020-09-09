@@ -1,0 +1,7 @@
+Collecting django-filter
+  Downloading django_filter-2.3.0-py3-none-any.whl (73 kB)
+Requirement already satisfied: Django>=2.2 in /home/lois/.virtualenvs/django_test/lib/python3.8/site-packages (from django-filter) (2.2.16)
+Requirement already satisfied: pytz in /home/lois/.virtualenvs/django_test/lib/python3.8/site-packages (from Django>=2.2->django-filter) (2020.1)
+Requirement already satisfied: sqlparse>=0.2.2 in /home/lois/.virtualenvs/django_test/lib/python3.8/site-packages (from Django>=2.2->django-filter) (0.3.1)
+Installing collected packages: django-filter
+Successfully installed django-filter-2.3.0

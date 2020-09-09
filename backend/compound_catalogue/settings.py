@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'graphene_django',
     'corsheaders',
-    'compound_catalogue_app'
+    'compound_catalogue_app',
+    'django_filters'
 ]
 
 MIDDLEWARE = [

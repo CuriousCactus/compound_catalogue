@@ -14,8 +14,6 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.conf import settings  # Not the best way to do this
-from django.conf.urls.static import static  # Not the best way to do this
 from django.contrib import admin
 from django.urls import include
 from django.urls import path
@@ -32,4 +30,4 @@ urlpatterns = [
     path('', RedirectView.as_view(url='catalogue/')),
     path('graphql/', GraphQLView.as_view(graphiql=True)),
     path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True)))
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  # Not the best way to do this
+]

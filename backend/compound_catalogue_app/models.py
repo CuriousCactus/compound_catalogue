@@ -1,19 +1,16 @@
 from django.db import models
-import json
-# Create your models here.
-
 from django.urls import reverse # Used to generate URLs by reversing the URL patterns
+import json
 
 class Compound(models.Model):
 
-    compound_id = models.IntegerField()
-    smiles = models.TextField(max_length=1000, help_text='Enter the SMILES')
-    molecular_weight = models.FloatField()
-    ALogP = models.FloatField()
-    molecular_formula = models.CharField(max_length=100, help_text='Enter the molecular formula')
-    num_rings = models.IntegerField()
-    image = models.CharField(max_length=1000, help_text='Enter the image path')
-
+    compound_id = models.IntegerField(verbose_name="Compound ID")
+    smiles = models.TextField(max_length=1000, help_text='Enter the SMILES', verbose_name="SMILES")
+    molecular_weight = models.FloatField(verbose_name="Molecular Weight")
+    ALogP = models.FloatField(verbose_name="ALogP")
+    molecular_formula = models.CharField(max_length=100, help_text='Enter the molecular formula', verbose_name="Molecular Formula")
+    num_rings = models.IntegerField(verbose_name="Number of Rings")
+    image = models.CharField(max_length=1000, help_text='Enter the image path', verbose_name="Image")
 
     def __str__(self):
         """String for representing the Model object."""
@@ -22,8 +19,6 @@ class Compound(models.Model):
     def get_absolute_url(self):
         """Returns the url to access a detail record for this compound."""
         return reverse('compound-detail', args=[str(self.id)])
-
-
 
 
 class AssayResult(models.Model):
