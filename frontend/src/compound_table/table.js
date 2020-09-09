@@ -9,17 +9,26 @@ import { CompoundTableHeader } from './table_header';
 import { CompoundTableBody } from './table_body';
 
 export function CompoundTable() {
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('compoundId');
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(100);
+  const [order, setOrder] = React.useState('asc');
+  const [orderBy, setOrderBy] = React.useState('compoundId');
 
   const QUERY_COMPOUNDS = gql`
     query {
-      compounds	{
-        compoundId
-        molecularFormula
-        molecularWeight
+      headers {
+        name
+        verbose_name
+      }
+      compounds {
+        id
+        compound_id
+        smiles
+        molecular_weight
+        ALogP
+        molecular_formula
+        num_rings
+        image
       }
     }
   `;
@@ -32,13 +41,7 @@ export function CompoundTable() {
 
   if (loading) return <p>Loading...</p>;
 
-  console.log(data)
-
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
+  // Pagination
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -49,8 +52,13 @@ export function CompoundTable() {
     setPage(0);
   };
 
-  const sortedData = stableSort(data.compounds, getComparator(order, orderBy))
-    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+  // Sorting the data
+
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
 
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -78,12 +86,14 @@ export function CompoundTable() {
     return stabilizedThis.map((el) => el[0]);
   }
 
+  const sortedData = stableSort(data.compounds, getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+
   return (
     <div className="root">
       <Paper className="paper">
         <TableContainer>
           <Table className="table" aria-labelledby="tableTitle" aria-label="enhanced table">
-            <CompoundTableHeader order={order} orderBy={orderBy} onRequestSort={handleRequestSort} rowCount={data.compounds.length}/>
+            <CompoundTableHeader order={order} orderBy={orderBy} onRequestSort={handleRequestSort} headers={data.headers}/>
             <CompoundTableBody tableData={sortedData}/>
           </Table>
         </TableContainer>

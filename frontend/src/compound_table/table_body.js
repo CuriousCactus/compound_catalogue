@@ -8,11 +8,16 @@ export function CompoundTableBody(props) {
 
   return (
     <TableBody>
-      {tableData.map(({ compoundId, molecularFormula, molecularWeight }) => (
-        <TableRow hover tabIndex={-1}>
-          <TableCell>{compoundId}</TableCell>
-          <TableCell>{molecularFormula}</TableCell>
-          <TableCell>{molecularWeight}</TableCell>
+      {tableData.map(({id, compound_id, smiles, molecular_weight, ALogP, molecular_formula, num_rings, image }) => (
+        <TableRow hover key={id}>
+          <TableCell>{id}</TableCell>
+          <TableCell>{compound_id}</TableCell>
+          <TableCell>{smiles}</TableCell>
+          <TableCell>{molecular_weight}</TableCell>
+          <TableCell>{ALogP}</TableCell>
+          <TableCell>{molecular_formula}</TableCell>
+          <TableCell>{num_rings}</TableCell>
+          <TableCell>{image}</TableCell>
         </TableRow>
       ))}
     </TableBody>

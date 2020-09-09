@@ -5,24 +5,18 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 export function CompoundTableHeader(props) {
-  const { order, orderBy, onRequestSort } = props;
+  const { order, orderBy, onRequestSort, headers } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
 
-  const headCells = [
-    { id: 'compoundId', label: 'ID' },
-    { id: 'molecularFormula', label: 'Molecular Formula' },
-    { id: 'molecularWeight', label: 'Molecular Weight' },
-  ];
-
   return (
     <TableHead>
       <TableRow>
-        {headCells.map((headCell) => (
-          <TableCell key={headCell.id} sortDirection={orderBy === headCell.id ? order : false}>
-            <TableSortLabel active={orderBy === headCell.id} direction={orderBy === headCell.id ? order : 'asc'} onClick={createSortHandler(headCell.id)}>
-              {headCell.label}
+        {headers.map((header) => (
+          <TableCell key={header.name} sortDirection={orderBy === header.name ? order : false}>
+            <TableSortLabel active={orderBy === header.name} direction={orderBy === header.name ? order : 'asc'} onClick={createSortHandler(header.name)}>
+              {header.verbose_name}
             </TableSortLabel>
           </TableCell>
         ))}
