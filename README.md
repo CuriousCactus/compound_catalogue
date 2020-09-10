@@ -7,19 +7,17 @@
 
 # Installation
 
-## pip
+## Django
 
 - Enter the python vm:
 
   `workon django_test`
 
+- Move to the 'backend' folder
+
 - Install the packages from the requirements file:
 
   `pip3 install -r requirements.txt`
-
-## Django
-
-- Move to the 'backend' folder
 
 - Get ready to import models into database:
 
