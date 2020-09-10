@@ -13,6 +13,7 @@ export function CompoundTableHeader(props) {
   return (
     <TableHead>
       <TableRow>
+        <TableCell />
         {headers.map((header) => (
           <TableCell key={header.name} sortDirection={orderBy === header.name ? order : false}>
             <TableSortLabel active={orderBy === header.name} direction={orderBy === header.name ? order : 'asc'} onClick={createSortHandler(header.name)}>
