@@ -20,18 +20,16 @@ class Header(graphene.ObjectType):
 
 class Query(ObjectType):
     compounds = graphene.List(CompoundsType)
-    # assay_results = graphene.List(AssayResultsType)
     headers = graphene.List(Header)
-
     assay_result = graphene.Field(AssayResultsType)
-    assay_results = graphene.List(AssayResultsType, compound=graphene.ID(), result=graphene.String())
+    assay_results = graphene.List(AssayResultsType, compound_id=graphene.ID(), result=graphene.String())
 
     def resolve_assay_result(self, info, id):
         return AssayResult.objects.get(pk=id)
 
-    def resolve_assay_results(self, info, compound = None, result = None, **kwargs):
-        if compound:
-            return AssayResult.objects.filter(compound__id=compound)
+    def resolve_assay_results(self, info, compound_id = None, result = None, **kwargs):
+        if compound_id:
+            return AssayResult.objects.filter(compound_id=compound_id)
         if result:
             return AssayResult.objects.filter(result=result)
         else:
@@ -55,7 +53,7 @@ class Query(ObjectType):
 schema = graphene.Schema(query=Query, auto_camelcase=False)
 
 # query {
-#   assay_results(compound: "1175669") {
+#   assay_results(compound_id: "1175669") {
 #     id
 #     result
 #     compound {
