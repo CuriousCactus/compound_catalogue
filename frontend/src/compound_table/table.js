@@ -2,11 +2,12 @@ import React from 'react';
 import { useQuery } from 'react-apollo';
 import { gql } from 'apollo-boost';
 import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
 import TableContainer from '@material-ui/core/TableContainer';
 import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
 import { CompoundTableHeader } from './table_header';
-import { CompoundTableBody } from './table_body';
+import { CompoundTableRow } from './table_row';
 
 export function CompoundTable() {
   const [page, setPage] = React.useState(0);
@@ -35,7 +36,7 @@ export function CompoundTable() {
 
   const { data, loading } = useQuery(
     QUERY_COMPOUNDS, {
-      pollInterval: 500
+      pollInterval: 5000
     }
   );
 
@@ -94,7 +95,11 @@ export function CompoundTable() {
         <TableContainer>
           <Table className="table" aria-labelledby="tableTitle" aria-label="enhanced table">
             <CompoundTableHeader order={order} orderBy={orderBy} onRequestSort={handleRequestSort} headers={data.headers}/>
-            <CompoundTableBody tableData={sortedData}/>
+              <TableBody>
+                {sortedData.map((sortedDatum) => (
+                  <CompoundTableRow key={sortedDatum.id} tableData={sortedDatum}/>
+                ))}
+              </TableBody>
           </Table>
         </TableContainer>
         <TablePagination
