@@ -1,12 +1,17 @@
 import graphene
 from graphene import ObjectType, String, Field
 from graphene_django import DjangoObjectType
-from compound_catalogue_app.models import Compound
+from compound_catalogue_app.models import Compound, AssayResult
 from graphene_django.filter import DjangoFilterConnectionField
 
 class CompoundsType(DjangoObjectType):
     class Meta:
         model = Compound
+        fields = "__all__"
+
+class AssayResultsType(DjangoObjectType):
+    class Meta:
+        model = AssayResult
         fields = "__all__"
 
 class Header(graphene.ObjectType):
@@ -15,10 +20,14 @@ class Header(graphene.ObjectType):
 
 class Query(ObjectType):
     compounds = graphene.List(CompoundsType)
+    assay_results = graphene.List(AssayResultsType)
     headers = graphene.List(Header)
 
     def resolve_compounds(self, info):
         return Compound.objects.all()
+
+    def resolve_assay_results(self, info):
+        return AssayResult.objects.all()
 
     def resolve_headers(self, info):
         fields = Compound._meta.get_fields()
