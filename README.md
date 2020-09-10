@@ -1,21 +1,65 @@
 # Prerequisites
 
+- Python 3
+- pip3
 - Node 14
 - Yarn
 
-# Django
+# Installation
 
-- Get ready to import models into database: `python3 manage.py makemigrations`
-- Import models into database: `python3 manage.py migrate`
-- Start the server: `python3 manage.py runserver`
-- Import data: `python3 manage.py import_json data/compounds.json`
-- Create a user so you can view the backend: `python3 manage.py createsuperuser`
+## pip
 
-# pip
+- Enter the python vm:
 
-- Move to python vm: `workon django_test`
-- Create list of installed packages: `pip3 freeze > requirements.txt`
-- Install the packages from file: `pip3 install -r requirements.txt`
+  `workon django_test`
+
+- Install the packages from the requirements file:
+
+  `pip3 install -r requirements.txt`
+
+## Django
+
+- Move to the 'backend' folder
+
+- Get ready to import models into database:
+
+  `python3 manage.py makemigrations`
+
+- Import models into database:
+
+  `python3 manage.py migrate`
+
+- Import data:
+
+  `python3 manage.py import_json data/compounds.json`
+
+- Start the server:
+
+  `python3 manage.py runserver`
+
+- Create a user so you can view the backend:
+
+  `python3 manage.py createsuperuser`
+
+## React
+
+- Move to the 'frontend' folder
+
+- Install dependencies:
+
+  `yarn install`
+
+- Copy the 'images' from the provided zip file folder into 'frontend/src'
+
+- Start the server:
+
+  `yarn start`
+
+# Development
+
+- Create list of installed packages:
+
+  `pip3 freeze > requirements.txt`
 
 # Sources
 
@@ -42,3 +86,6 @@
 - Linting
 - Compiled css
 - Document installation!
+- Bigger font size
+- Header should be sticky
+- Generate images
