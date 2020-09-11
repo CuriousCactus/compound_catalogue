@@ -46,9 +46,13 @@
 
   `python3 manage.py runserver`
 
-- Create a user so you can view the backend:
+- Create a user so you can view the admin pages:
 
   `python3 manage.py createsuperuser`
+
+- View the admin pages here:
+
+  http://localhost:8000/admin/
 
 ## Frontend
 
@@ -66,6 +70,10 @@
 
   `yarn start`
 
+- View the app here:
+
+  http://localhost:3000/
+
 # Helpful commands
 
 - Enter the python vm (after creating it during installation):
@@ -75,6 +83,10 @@
 - Create list of installed packages:
 
   `pip3 freeze > requirements.txt`
+
+- You can test GraphQL queries here:
+
+  http://localhost:8000/graphql/
 
 # Sources
 
