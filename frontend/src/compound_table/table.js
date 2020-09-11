@@ -14,6 +14,8 @@ export function CompoundTable() {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('compoundId');
 
+  // Query
+
   const QUERY_COMPOUNDS = gql`
     query {
       headers {
@@ -33,13 +35,14 @@ export function CompoundTable() {
     }
   `;
 
-  const { data, loading } = useQuery(
+  const { loading, error, data } = useQuery(
     QUERY_COMPOUNDS, {
       pollInterval: 5000
     }
   );
 
   if (loading) return <p>Loading...</p>;
+  if (error) return `Error! ${error.message}`;
 
   // Pagination
 

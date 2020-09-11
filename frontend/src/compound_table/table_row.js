@@ -43,7 +43,7 @@ export function CompoundTableRow(props) {
        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={9}>
          <Collapse in={open} timeout="auto" unmountOnExit>
            <Box margin={1}>
-             <AssayResultsTable/>
+             <AssayResultsTable compound_id={tableData.id}/>
            </Box>
          </Collapse>
        </TableCell>
