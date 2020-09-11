@@ -105,8 +105,8 @@
 
 # Tasks
 
+- IDs are duplicated (id is strings, compound_id is integers)
 - Linting
 - Compiled css
-- Bigger font size
 - Generate images
 - Table should be filterable
