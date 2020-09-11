@@ -2,18 +2,29 @@
 
 - Python 3
 - pip3
-- Node 14
+- virtualenv (venv should also work)
+- Node 14 (older versions not tested but could also work)
 - Yarn
 
 # Installation
 
-## Django
+- Clone the repo:
+
+  `git clone git@github.com:CuriousCactus/compound_catalogue.git`
+
+- Move into the directory
+
+  `cd compound_catalogue`
+
+## Backend
 
 - Move to the 'backend' folder
 
-- Enter the python vm:
+  `cd backend`
 
-  `workon django_test`
+- Create a python vm:
+
+  `mkvirtualenv compound_catalogue`
 
 - Install the packages from the requirements file:
 
@@ -39,9 +50,11 @@
 
   `python3 manage.py createsuperuser`
 
-## React
+## Frontend
 
 - Move to the 'frontend' folder
+
+  `cd ../frontend`
 
 - Install dependencies:
 
@@ -53,7 +66,11 @@
 
   `yarn start`
 
-# Development
+# Helpful commands
+
+- Enter the python vm (after creating it during installation):
+
+  `workon compound_catalogue`
 
 - Create list of installed packages:
 
@@ -70,7 +87,7 @@
 
 - Which is the best drug for my protein?
 - Can I see if there are any predictors for binding?
-- Calculate more properties of molecules? H bond donors?
+- Can I calculate more properties of molecules, for example H-bond donors, which might be better predictors of binding?
 - For larger datasets, should sorting and pagination be done in the backend?
 
 # Tasks
@@ -83,7 +100,6 @@
 - Make it look prettier
 - Linting
 - Compiled css
-- Document installation!
 - Bigger font size
 - Header should be sticky
 - Generate images
