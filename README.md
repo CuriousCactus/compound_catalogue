@@ -100,6 +100,7 @@
 - Which is the best drug for my protein?
 - Can I see if there are any predictors for binding?
 - Can I calculate more properties of molecules, for example H-bond donors, which might be better predictors of binding?
+  https://www.rdkit.org/docs/source/rdkit.Chem.Lipinski.html
 - For larger datasets, should sorting and pagination be done in the backend?
 
 # Tasks

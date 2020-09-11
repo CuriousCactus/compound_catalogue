@@ -1,34 +1,47 @@
 import React from 'react';
+import { gql, useQuery } from '@apollo/client';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
-const history = [
-  { date: '2020-01-05', customerId: '11091700', amount: 3 },
-  { date: '2020-01-02', customerId: 'Anonymous', amount: 1 },
-]
+const GET_DOGS = gql`
+  query {
+    assay_results(compound_id: "1175669") {
+      id
+      target
+      result
+      operator
+      value
+      unit
+    }
+  }
+`;
 
 export function AssayResultsTable(props) {
+  const { loading, error, data } = useQuery(GET_DOGS);
+
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
+
   return (
     <Table size="small" aria-label="purchases">
       <TableHead>
         <TableRow>
-          <TableCell>Date</TableCell>
-          <TableCell>Customer</TableCell>
-          <TableCell align="right">Amount</TableCell>
-          <TableCell align="right">Total price ($)</TableCell>
+          <TableCell>Result ID</TableCell>
+          <TableCell>Protein Target</TableCell>
+          <TableCell>Result Type</TableCell>
+          <TableCell>Result</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {history.map((historyRow) => (
-          <TableRow key={historyRow.date}>
-            <TableCell component="th" scope="row">
-              {historyRow.date}
-            </TableCell>
-            <TableCell>{historyRow.customerId}</TableCell>
-            <TableCell align="right">{historyRow.amount}</TableCell>
+        {data.assay_results.map((historyRow) => (
+          <TableRow key={historyRow.id}>
+            <TableCell>{historyRow.id}</TableCell>
+            <TableCell>{historyRow.target}</TableCell>
+            <TableCell>{historyRow.result}</TableCell>
+            <TableCell>{historyRow.operator+" "+historyRow.value+" "+historyRow.unit}</TableCell>
           </TableRow>
         ))}
       </TableBody>

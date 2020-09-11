@@ -1,6 +1,5 @@
 import React from 'react';
-import { useQuery } from 'react-apollo';
-import { gql } from 'apollo-boost';
+import { gql, useQuery } from '@apollo/client';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableContainer from '@material-ui/core/TableContainer';
