@@ -105,14 +105,8 @@
 
 # Tasks
 
-- Get assay data from backend
-- Show assay data in dropdown in table
-- IDs are duplicated (id is strings, compound_id is integers)
-- Decide if cells should be displayed programmatically or written out by hand
-- Order of columns could come from query, or a column order array in table.js
-- Make it look prettier
 - Linting
 - Compiled css
 - Bigger font size
-- Header should be sticky
 - Generate images
+- Table should be filterable

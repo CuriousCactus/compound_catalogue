@@ -42,6 +42,18 @@ export function CompoundTable() {
   if (loading) return <p>Loading...</p>;
   if (error) return `Error! ${error.message}`;
 
+  // Column order for the table
+
+  const columnOrder = [
+    "compound_id",
+    "molecular_weight",
+    "molecular_formula",
+    "smiles",
+    "num_rings",
+    "ALogP",
+    "image"
+  ]
+
   // Pagination
 
   const handleChangePage = (event, newPage) => {
@@ -92,10 +104,10 @@ export function CompoundTable() {
   return (
     <React.Fragment>
       <Table stickyHeader>
-        <CompoundTableHeader order={order} orderBy={orderBy} onRequestSort={handleRequestSort} headers={data.headers}/>
+        <CompoundTableHeader order={order} orderBy={orderBy} onRequestSort={handleRequestSort} headers={data.headers} columnOrder={columnOrder}/>
         <TableBody>
           {sortedData.map((dataRow) => (
-            <CompoundTableRow key={dataRow.id} tableData={dataRow}/>
+            <CompoundTableRow key={dataRow.id} tableData={dataRow} columnOrder={columnOrder}/>
           ))}
         </TableBody>
       </Table>

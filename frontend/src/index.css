@@ -11,7 +11,7 @@ body {
   border: 1px solid rgba(224, 224, 224, 1);
 }
 
-.MuiTableCell-body:nth-child(4) {
+.MuiTableCell-body:nth-child(5) {
     word-wrap: anywhere;
 }
 

@@ -8,19 +8,28 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { AssayResultsTable } from './assay_results_table';
 
+// Create an array with key: id, value: actual path to image
+const reqImages = require.context('../images/', true, /\.png$/)
+const images = reqImages.keys().reduce(
+  (images, path) => {
+    const key = path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.'))
+    images[key] = reqImages(path)
+    return images
+  }, {}
+)
+
+// Render the row depending on whether it is an image
+function CompoundTableCell( {columnName, tableData} ) {
+  if (columnName === "image") {
+    return <TableCell><img src={images[tableData.id]} alt={tableData.molecular_formula}/></TableCell>
+  } else {
+    return <TableCell>{tableData[columnName]}</TableCell>
+  }
+}
+
 export function CompoundTableRow(props) {
   const [open, setOpen] = React.useState(false);
-  const { tableData } = props;
-
-  // Create an array with key: id, value: actual path to image
-  const reqImages = require.context('../images/', true, /\.png$/)
-  const images = reqImages.keys().reduce(
-    (images, path) => {
-      const key = path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.'))
-      images[key] = reqImages(path)
-      return images
-    }, {}
-  )
+  const { columnOrder, tableData } = props;
 
   return (
     <React.Fragment>
@@ -30,14 +39,9 @@ export function CompoundTableRow(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell>{tableData.id}</TableCell>
-        <TableCell>{tableData.compound_id}</TableCell>
-        <TableCell>{tableData.smiles}</TableCell>
-        <TableCell>{tableData.molecular_weight}</TableCell>
-        <TableCell>{tableData.ALogP}</TableCell>
-        <TableCell>{tableData.molecular_formula}</TableCell>
-        <TableCell>{tableData.num_rings}</TableCell>
-        <TableCell><img src={images[tableData.id]} alt={tableData.molecular_formula}/></TableCell>
+        {columnOrder.map((columnName) => (
+          <CompoundTableCell key={columnName} columnName={columnName} tableData={tableData}/>
+        ))}
       </TableRow>
       <TableRow key={tableData.id+"_assay_results"} className="assay_results">
        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={9}>
