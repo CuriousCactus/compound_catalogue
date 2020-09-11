@@ -1,5 +1,6 @@
 import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import Container from '@material-ui/core/Container';
 import { CompoundTable } from './compound_table/table'
 
 const client = new ApolloClient({
@@ -10,7 +11,10 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <CompoundTable/>
+      <Container>
+        <h1>Compound Catalogue</h1>
+        <CompoundTable/>
+      </Container>
     </ApolloProvider>
   )
 };

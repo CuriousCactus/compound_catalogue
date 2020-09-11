@@ -29,25 +29,28 @@ export function AssayResultsTable(props) {
   if (error) return `Error! ${error.message}`;
 
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>Result ID</TableCell>
-          <TableCell>Protein Target</TableCell>
-          <TableCell>Result Type</TableCell>
-          <TableCell>Result</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {data.assay_results.map((assayResult) => (
-          <TableRow key={assayResult.id}>
-            <TableCell>{assayResult.id}</TableCell>
-            <TableCell>{assayResult.target}</TableCell>
-            <TableCell>{assayResult.result}</TableCell>
-            <TableCell>{assayResult.operator+" "+assayResult.value+" "+assayResult.unit}</TableCell>
+    <React.Fragment>
+      <h2>Assay Results</h2>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Result ID</TableCell>
+            <TableCell>Protein Target</TableCell>
+            <TableCell>Result Type</TableCell>
+            <TableCell>Result</TableCell>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHead>
+        <TableBody>
+          {data.assay_results.map((assayResult) => (
+            <TableRow key={assayResult.id}>
+              <TableCell>{assayResult.id}</TableCell>
+              <TableCell>{assayResult.target}</TableCell>
+              <TableCell>{assayResult.result}</TableCell>
+              <TableCell>{assayResult.operator+" "+assayResult.value+" "+assayResult.unit}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </React.Fragment>
   );
 }

@@ -24,7 +24,7 @@ export function CompoundTableRow(props) {
 
   return (
     <React.Fragment>
-      <TableRow hover key={tableData.id}>
+      <TableRow key={tableData.id} className="compound_properties">
         <TableCell>
           <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -39,7 +39,7 @@ export function CompoundTableRow(props) {
         <TableCell>{tableData.num_rings}</TableCell>
         <TableCell><img src={images[tableData.id]} alt={tableData.molecular_formula}/></TableCell>
       </TableRow>
-      <TableRow hover key={tableData.id+"_assay_results"}>
+      <TableRow key={tableData.id+"_assay_results"} className="assay_results">
        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={9}>
          <Collapse in={open} timeout="auto" unmountOnExit>
            <Box margin={1}>
