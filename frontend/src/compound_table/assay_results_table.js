@@ -25,13 +25,11 @@ export function AssayResultsTable(props) {
     variables: { compound_id },
   });
 
-  console.log(data)
-
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
 
   return (
-    <Table size="small" aria-label="purchases">
+    <Table>
       <TableHead>
         <TableRow>
           <TableCell>Result ID</TableCell>
