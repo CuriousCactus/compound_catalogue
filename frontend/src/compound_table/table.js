@@ -10,7 +10,7 @@ export function CompoundTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('compoundId');
+  const [orderBy, setOrderBy] = React.useState('compound_id');
 
   // Query
 
