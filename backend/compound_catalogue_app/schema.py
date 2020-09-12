@@ -1,8 +1,6 @@
-import graphene
-from graphene import ObjectType, String, Field
+from graphene import ObjectType, ID, String, List, Field, Schema
 from graphene_django import DjangoObjectType
 from compound_catalogue_app.models import Compound, AssayResult
-from graphene_django.filter import DjangoFilterConnectionField
 
 class CompoundsType(DjangoObjectType):
     class Meta:
@@ -14,32 +12,25 @@ class AssayResultsType(DjangoObjectType):
         model = AssayResult
         fields = "__all__"
 
-class Header(graphene.ObjectType):
-    name = graphene.String()
-    verbose_name = graphene.String()
+class Header(ObjectType):
+    name = String()
+    verbose_name = String()
 
 class Query(ObjectType):
-    compounds = graphene.List(CompoundsType)
-    headers = graphene.List(Header)
-    assay_result = graphene.Field(AssayResultsType)
-    assay_results = graphene.List(AssayResultsType, compound_id=graphene.ID(), result=graphene.String())
+    compounds = List(CompoundsType)
+    headers = List(Header)
+    assay_results = List(AssayResultsType, compound_id=ID(), result=String())
 
-    def resolve_assay_result(self, info, id):
-        return AssayResult.objects.get(pk=id)
+    def resolve_compounds(self, info):
+        return Compound.objects.all()
 
-    def resolve_assay_results(self, info, compound_id = None, result = None, **kwargs):
+    def resolve_assay_results(self, info, compound_id = None, result = None):
         if compound_id:
             return AssayResult.objects.filter(compound_id=compound_id)
         if result:
             return AssayResult.objects.filter(result=result)
         else:
             return AssayResult.objects.all()
-
-    def resolve_compounds(self, info):
-        return Compound.objects.all()
-
-    # def resolve_assay_results(self, info):
-    #     return AssayResult.objects.all()
 
     def resolve_headers(self, info):
         fields = Compound._meta.get_fields()
@@ -50,14 +41,4 @@ class Query(ObjectType):
                 list.append(header)
         return list
 
-schema = graphene.Schema(query=Query, auto_camelcase=False)
-
-# query {
-#   assay_results(compound_id: "1175669") {
-#     id
-#     result
-#     compound {
-#       id
-#     }
-#   }
-# }
+schema = Schema(query=Query, auto_camelcase=False)
