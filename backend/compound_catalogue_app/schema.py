@@ -19,18 +19,13 @@ class Header(ObjectType):
 class Query(ObjectType):
     compounds = List(CompoundsType)
     headers = List(Header)
-    assay_results = List(AssayResultsType, compound_id=ID(), result=String())
+    assay_results = List(AssayResultsType, compound_id=ID(), target=String(), result=String())
 
     def resolve_compounds(self, info):
         return Compound.objects.all()
 
-    def resolve_assay_results(self, info, compound_id = None, result = None):
-        if compound_id:
-            return AssayResult.objects.filter(compound_id=compound_id)
-        if result:
-            return AssayResult.objects.filter(result=result)
-        else:
-            return AssayResult.objects.all()
+    def resolve_assay_results(self, info, **args):
+        return AssayResult.objects.filter(**args)
 
     def resolve_headers(self, info):
         fields = Compound._meta.get_fields()
