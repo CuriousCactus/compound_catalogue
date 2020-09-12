@@ -13,7 +13,7 @@ function App() {
     <ApolloProvider client={client}>
       <Container maxWidth='xl'>
         <h1>Compound Catalogue</h1>
-        <CompoundTable choice = 'assay_results'/>
+        <CompoundTable choice = 'compounds'/>
       </Container>
     </ApolloProvider>
   )

@@ -149,7 +149,7 @@ export function CompoundTable(props) {
   return (
     <React.Fragment>
       <Table stickyHeader>
-        <CompoundTableHeader order={order} orderBy={orderBy} onRequestSort={handleRequestSort} columnOrder={columnOrder}/>
+        <CompoundTableHeader order={order} orderBy={orderBy} onRequestSort={handleRequestSort} columnOrder={columnOrder} choice={choice}/>
         <TableBody>
           {sortedData.map((dataRow) => (
             <CompoundTableRow key={dataRow.id} tableData={dataRow} columnOrder={columnOrder} choice={choice}/>
