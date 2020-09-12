@@ -1,10 +1,10 @@
-import React from 'react';
-import { gql, useQuery } from '@apollo/client';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
+import React from "react";
+import { gql, useQuery } from "@apollo/client";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
 
 const GET_ASSAY_RESULTS = gql`
   query AssayResults($compound_id: ID!) {
@@ -25,7 +25,7 @@ export function AssayResultsTable(props) {
     variables: { compound_id },
   });
 
-  if (loading) return 'Loading...';
+  if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
 
   return (

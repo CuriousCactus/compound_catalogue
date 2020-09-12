@@ -89,6 +89,28 @@ The frontend is a React App which uses Apollo Client to query the backend. It sh
 
 # Usage
 
+- Move to the 'backend' folder
+
+  `cd backend`
+
+- Enter the vm:
+
+  `source env/bin/activate`
+
+- Start the server:
+
+  `python3 manage.py runserver`
+
+- Move to the 'frontend' folder in a new terminal
+
+  `cd frontend`
+
+- Move to the 'frontend' folder in a new terminal
+
+  `yarn start`
+
+# Features
+
 - Sort columns by clicking on column headings
 - Expand a row to see the assay results for that compound by clicking the arrow on the left
 - Change the number of compounds per page and switch pages at the bottom of the table
@@ -125,9 +147,12 @@ The frontend is a React App which uses Apollo Client to query the backend. It sh
 
 # Tasks
 
+- Choice switcher/menu
+- Pickers for protein and result type
+- Switch title
+- Sort assay results by value
+- Table should be filterable
 - IDs are duplicated (id is strings, compound_id is integers)
 - Linting
 - Compiled css
 - Generate images
-- Table should be filterable
-- Description in readme

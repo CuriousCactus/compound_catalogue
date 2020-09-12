@@ -1,26 +1,22 @@
-import React from 'react';
-import { gql, useQuery } from '@apollo/client';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TablePagination from '@material-ui/core/TablePagination';
-import { CompoundTableHeader } from './table_header';
-import { CompoundTableRow } from './table_row';
+import React from "react";
+import { gql, useQuery } from "@apollo/client";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TablePagination from "@material-ui/core/TablePagination";
+import { CompoundTableHeader } from "./table_header";
+import { CompoundTableRow } from "./table_row";
 
 export function CompoundTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('compound_id');
+  const [order, setOrder] = React.useState("asc");
+  const [orderBy, setOrderBy] = React.useState("compound_id");
   const { choice } = props;
 
   // Query
 
   const QUERY_COMPOUNDS = gql`
     query {
-      headers {
-        name
-        verbose_name
-      }
       compounds {
         id
         compound_id
@@ -36,10 +32,6 @@ export function CompoundTable(props) {
 
   const QUERY_ASSAY_RESULTS = gql`
     query {
-      headers {
-        name
-        verbose_name
-      }
       assay_results(target: "Bromodomain-containing protein 4", result: "IC50") {
         id
         result_id
@@ -50,6 +42,8 @@ export function CompoundTable(props) {
         unit
         compound {
           compound_id
+          image
+          molecular_formula
         }
       }
     }
@@ -58,9 +52,9 @@ export function CompoundTable(props) {
   // Column order for the table
 
   var columnOrder = []
-  var query = ''
+  var query = ""
 
-  if (choice === 'assay_results') {
+  if (choice === "assay_results") {
     query = QUERY_ASSAY_RESULTS
     columnOrder = [
       "result_id",
@@ -68,7 +62,9 @@ export function CompoundTable(props) {
       "result",
       "operator",
       "value",
-      "unit"
+      "unit",
+      "compound_id",
+      "image"
     ]
   } else {
     query = QUERY_COMPOUNDS
@@ -92,8 +88,8 @@ export function CompoundTable(props) {
   if (loading) return <p>Loading...</p>;
   if (error) return `Error! ${error.message}`;
 
-  var tdata = ''
-  if (choice === 'assay_results') {
+  var tdata = ""
+  if (choice === "assay_results") {
     tdata = data.assay_results
   } else {
     tdata = data.compounds
@@ -113,8 +109,8 @@ export function CompoundTable(props) {
   // Sorting the data
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
@@ -129,7 +125,7 @@ export function CompoundTable(props) {
   }
 
   function getComparator(order, orderBy) {
-    return order === 'desc'
+    return order === "desc"
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy);
   }

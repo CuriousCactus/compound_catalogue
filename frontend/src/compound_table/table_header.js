@@ -1,9 +1,9 @@
-import React from 'react';
-import { gql, useQuery } from '@apollo/client';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
+import React from "react";
+import { gql, useQuery } from "@apollo/client";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableSortLabel from "@material-ui/core/TableSortLabel";
 
 export function CompoundTableHeader(props) {
   const { columnOrder, order, orderBy, onRequestSort, choice } = props;
@@ -19,15 +19,18 @@ export function CompoundTableHeader(props) {
     }
   `;
 
-  const { data } = useQuery(QUERY_HEADERS);
+  const { loading, error, data } = useQuery(QUERY_HEADERS);
+
+  if (loading) return <thead/>;
+  if (error) return `Error! ${error.message}`;
 
   // Capitalises the first letter of each word in a string
   function titleCase(str) {
-    var splitStr = str.toLowerCase().split(' ');
+    var splitStr = str.toLowerCase().split(" ");
     for (var i = 0; i < splitStr.length; i++) {
      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
     }
-    return splitStr.join(' ');
+    return splitStr.join(" ");
   }
 
   // Gets the verbose name of the field from the headers query
@@ -54,12 +57,12 @@ export function CompoundTableHeader(props) {
   return (
     <TableHead>
       <TableRow>
-        {choice === 'compounds' && (
+        {choice === "compounds" && (
           <TableCell/>
         )}
         {columnOrder.map((columnName) => (
           <TableCell key={columnName} sortDirection={orderBy === columnName ? order : false}>
-            <TableSortLabel active={orderBy === columnName} direction={orderBy === columnName ? order : 'asc'} onClick={createSortHandler(columnName)}>
+            <TableSortLabel active={orderBy === columnName} direction={orderBy === columnName ? order : "asc"} onClick={createSortHandler(columnName)}>
               {getByValue(data.headers, columnName)}
             </TableSortLabel>
           </TableCell>
