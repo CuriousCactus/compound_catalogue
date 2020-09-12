@@ -5,7 +5,7 @@ __pycache__/
 images/
 Code Challenge Instructions.pdf
 compound_catalogue_db
-migrations
+migrations/
 env/
 
 # Frontend

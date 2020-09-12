@@ -13,9 +13,8 @@ class Command(BaseCommand):
 
         for compound in compound_list:
             compound['pk'] = compound['compound_id']
+            assay_result_list = compound.pop('assay_results')
             compound_object = Compound.objects.get_or_create(pk=compound['pk'], defaults=compound)
-
-            assay_result_list = compound['assay_results']
 
             for assay_result in assay_result_list:
                 assay_result['pk'] = assay_result['result_id']

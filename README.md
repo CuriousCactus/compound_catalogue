@@ -1,8 +1,9 @@
 # Prerequisites
 
-- Python 3
+- python3
 - pip3
 - venv
+- sqlite3
 - Node 14 (older versions not tested but could also work)
 - Yarn
 
@@ -34,25 +35,21 @@
 
   `pip3 install -r requirements.txt`
 
-- Get ready to import models into database:
-
-  `python3 manage.py makemigrations`
-
 - Import models into database:
 
-  `python3 manage.py migrate`
+  `python manage.py migrate --run-syncdb`
 
 - Import data:
 
   `python3 manage.py import_json data/compounds.json`
 
-- Start the server:
-
-  `python3 manage.py runserver`
-
 - Create a user so you can view the admin pages:
 
   `python3 manage.py createsuperuser`
+
+- Start the server:
+
+  `python3 manage.py runserver`
 
 - View the admin pages here:
 
@@ -80,15 +77,16 @@
 
 # Helpful commands
 
-- Enter the python vm (after creating it during installation):
+- Import models into database after making changes to them:
 
-  `workon compound_catalogue`
+  `python3 manage.py makemigrations`
+  `python3 manage.py migrate`
 
 - Create list of installed packages:
 
   `pip3 freeze > requirements.txt`
 
-- You can test GraphQL queries here:
+- Test GraphQL queries here:
 
   http://localhost:8000/graphql/
 
