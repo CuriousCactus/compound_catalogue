@@ -8,7 +8,9 @@ body {
 }
 
 .MuiTable-root {
-  border: 1px solid rgba(224, 224, 224, 1);
+  border-top: 1px solid rgba(224, 224, 224, 1);
+  border-left: 1px solid rgba(224, 224, 224, 1);
+  border-right: 1px solid rgba(224, 224, 224, 1);
 }
 
 .MuiTableCell-root {

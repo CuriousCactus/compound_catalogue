@@ -2,7 +2,7 @@
 
 - Python 3
 - pip3
-- virtualenv (venv should also work)
+- venv
 - Node 14 (older versions not tested but could also work)
 - Yarn
 
@@ -24,7 +24,11 @@
 
 - Create a python vm:
 
-  `mkvirtualenv compound_catalogue`
+  `python3 -m venv env`
+
+- Enter the vm:
+
+  `source env/bin/activate`
 
 - Install the packages from the requirements file:
 
@@ -110,3 +114,4 @@
 - Compiled css
 - Generate images
 - Table should be filterable
+- Description in readme
