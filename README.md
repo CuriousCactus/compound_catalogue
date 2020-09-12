@@ -1,11 +1,23 @@
+# Introduction
+
+This app can be used to display a json file of potential drugs, each of which have associated assay results which indicate whether they bind well to a particular protein target.
+
+Firstly, the json file is loaded into a backend database built with Django using a script. The data are loaded into two tables: Compounds and Assay Results. Each Assay Result is associated with the Compound that was tested.
+
+The data are made available using GraphQL and Graphene, so that queries can be run from the frontend using Apollo Client. Queries can be run on Compounds and Assay Results. Assay results are filterable by compound ID, so you can find all the assays run for a particular compound.
+
+In addition, the Compound field names can be fetched using a query. The properly spaced and capitalised 'verbose names' are then used as table headers in the frontend.
+
+The frontend is a React App which uses Apollo Client to query the backend. It shows a Compound Catalogue which is a list of all the compounds in a table with sortable columns and pagination. Each compound row can be expanded to show the associated assay results.
+
 # Prerequisites
 
 - python3
 - pip3
 - venv
 - sqlite3
-- Node 14 (older versions not tested but could also work)
-- Yarn
+- Node (versions 10 and 14 have been confirmed to work)
+- Yarn (version 1.21.1 has been confirmed to work)
 
 # Installation
 
@@ -57,15 +69,15 @@
 
 ## Frontend
 
-- Move to the 'frontend' folder
+- In a new terminal, move to the 'frontend' folder
 
-  `cd ../frontend`
+  `cd frontend`
 
 - Install dependencies:
 
   `yarn install`
 
-- Copy the 'images' from the provided zip file folder into 'frontend/src'
+- Copy the 'images' folder from the provided zip file into 'frontend/src'
 
 - Start the server:
 
@@ -74,6 +86,12 @@
 - View the app here:
 
   http://localhost:3000/
+
+# Usage
+
+- Sort columns by clicking on column headings
+- Expand a row to see the assay results for that compound by clicking the arrow on the left
+- Change the number of compounds per page and switch pages at the bottom of the table
 
 # Helpful commands
 
