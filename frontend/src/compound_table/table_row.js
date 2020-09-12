@@ -29,16 +29,18 @@ function CompoundTableCell( {columnName, tableData} ) {
 
 export function CompoundTableRow(props) {
   const [open, setOpen] = React.useState(false);
-  const { columnOrder, tableData } = props;
+  const { columnOrder, tableData, choice } = props;
 
   return (
     <React.Fragment>
       <TableRow key={tableData.id} className="compound_properties">
-        <TableCell>
-          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
+        {choice === 'compounds' && (
+          <TableCell>
+            <IconButton size="small" onClick={() => setOpen(!open)}>
+              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            </IconButton>
+          </TableCell>
+        )}
         {columnOrder.map((columnName) => (
           <CompoundTableCell key={columnName} columnName={columnName} tableData={tableData}/>
         ))}

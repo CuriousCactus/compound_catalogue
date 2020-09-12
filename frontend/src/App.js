@@ -11,9 +11,9 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Container maxWidth="xl">
+      <Container maxWidth='xl'>
         <h1>Compound Catalogue</h1>
-        <CompoundTable/>
+        <CompoundTable choice = 'assay_results'/>
       </Container>
     </ApolloProvider>
   )

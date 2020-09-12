@@ -6,11 +6,12 @@ import TablePagination from '@material-ui/core/TablePagination';
 import { CompoundTableHeader } from './table_header';
 import { CompoundTableRow } from './table_row';
 
-export function CompoundTable() {
+export function CompoundTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('compound_id');
+  const { choice } = props;
 
   // Query
 
@@ -33,8 +34,57 @@ export function CompoundTable() {
     }
   `;
 
+  const QUERY_ASSAY_RESULTS = gql`
+    query {
+      headers {
+        name
+        verbose_name
+      }
+      assay_results(target: "Bromodomain-containing protein 4", result: "IC50") {
+        id
+        result_id
+        target
+        result
+        operator
+        value
+        unit
+        compound {
+          compound_id
+        }
+      }
+    }
+  `;
+
+  // Column order for the table
+
+  var columnOrder = []
+  var query = ''
+
+  if (choice === 'assay_results') {
+    query = QUERY_ASSAY_RESULTS
+    columnOrder = [
+      "result_id",
+      "target",
+      "result",
+      "operator",
+      "value",
+      "unit"
+    ]
+  } else {
+    query = QUERY_COMPOUNDS
+    columnOrder = [
+      "compound_id",
+      "molecular_weight",
+      "molecular_formula",
+      "smiles",
+      "num_rings",
+      "ALogP",
+      "image"
+    ]
+  }
+
   const { loading, error, data } = useQuery(
-    QUERY_COMPOUNDS, {
+    query, {
       pollInterval: 5000
     }
   );
@@ -42,17 +92,12 @@ export function CompoundTable() {
   if (loading) return <p>Loading...</p>;
   if (error) return `Error! ${error.message}`;
 
-  // Column order for the table
-
-  const columnOrder = [
-    "compound_id",
-    "molecular_weight",
-    "molecular_formula",
-    "smiles",
-    "num_rings",
-    "ALogP",
-    "image"
-  ]
+  var tdata = ''
+  if (choice === 'assay_results') {
+    tdata = data.assay_results
+  } else {
+    tdata = data.compounds
+  }
 
   // Pagination
 
@@ -99,22 +144,22 @@ export function CompoundTable() {
     return stabilizedThis.map((el) => el[0]);
   }
 
-  const sortedData = stableSort(data.compounds, getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+  const sortedData = stableSort(tdata, getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 
   return (
     <React.Fragment>
       <Table stickyHeader>
-        <CompoundTableHeader order={order} orderBy={orderBy} onRequestSort={handleRequestSort} headers={data.headers} columnOrder={columnOrder}/>
+        <CompoundTableHeader order={order} orderBy={orderBy} onRequestSort={handleRequestSort} columnOrder={columnOrder}/>
         <TableBody>
           {sortedData.map((dataRow) => (
-            <CompoundTableRow key={dataRow.id} tableData={dataRow} columnOrder={columnOrder}/>
+            <CompoundTableRow key={dataRow.id} tableData={dataRow} columnOrder={columnOrder} choice={choice}/>
           ))}
         </TableBody>
       </Table>
       <TablePagination
         rowsPerPageOptions={[5, 10, 25, 100]}
         component="div"
-        count={data.compounds.length}
+        count={tdata.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}
