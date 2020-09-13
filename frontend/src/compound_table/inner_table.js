@@ -19,7 +19,7 @@ const GET_ASSAY_RESULTS = gql`
   }
 `;
 
-export function AssayResultsTable(props) {
+export function InnerTable(props) {
   const { compound_id } = props;
   const { loading, error, data } = useQuery(
     GET_ASSAY_RESULTS, {

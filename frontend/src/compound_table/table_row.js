@@ -6,7 +6,7 @@ import Box from "@material-ui/core/Box";
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import { AssayResultsTable } from "./assay_results_table";
+import { InnerTable } from "./inner_table";
 
 export function CompoundTableRow(props) {
   const [open, setOpen] = React.useState(false);
@@ -59,7 +59,7 @@ export function CompoundTableRow(props) {
        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={9}>
          <Collapse in={open} timeout="auto" unmountOnExit>
            <Box margin={1}>
-             <AssayResultsTable compound_id={dataRow.id}/>
+             <InnerTable compound_id={dataRow.id}/>
            </Box>
          </Collapse>
        </TableCell>
