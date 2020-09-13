@@ -10,8 +10,14 @@ export function CompoundTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("compound_id");
+  const [orderBy, setOrderBy] = React.useState("value");
   const { choice } = props;
+
+  // Update table sorting based on table choice
+
+  React.useEffect(() => {
+      setOrderBy(choice === "compounds" ? "compound_id" : "value");
+  }, [choice])
 
   // Query
 
@@ -31,8 +37,8 @@ export function CompoundTable(props) {
   `;
 
   const QUERY_ASSAY_RESULTS = gql`
-    query {
-      assay_results(target: "Bromodomain-containing protein 4", result: "IC50") {
+    query AssayResults($target: String!, $result: String!) {
+      assay_results(target: $target, result: $result) {
         id
         result_id
         target
@@ -55,6 +61,8 @@ export function CompoundTable(props) {
   var query = ""
 
   if (choice === "assay_results") {
+    var target = "Bromodomain-containing protein 4"
+    var result = "IC50"
     query = QUERY_ASSAY_RESULTS
     columnOrder = [
       "result_id",
@@ -81,7 +89,8 @@ export function CompoundTable(props) {
 
   const { loading, error, data } = useQuery(
     query, {
-      pollInterval: 5000
+      pollInterval: 5000,
+      variables: { target, result }
     }
   );
 

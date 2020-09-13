@@ -147,9 +147,7 @@ The frontend is a React App which uses Apollo Client to query the backend. It sh
 
 # Tasks
 
-- Choice switcher/menu
 - Pickers for protein and result type
-- Switch title
 - Sort assay results by value
 - Name variables better (tdata vs tableData)
 - Table should be filterable

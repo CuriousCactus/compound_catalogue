@@ -16,17 +16,20 @@ const client = new ApolloClient({
 
 const options = [
   {
-    id:"compounds",
-    label:"Compound Catalogue"},
+    id: "compounds",
+    label: "Compound Catalogue",
+    description: ""
+  },
   {
-    id:"assay_results",
-    label:"Assay Results Catalogue"
+    id: "assay_results",
+    label: "Assay Results Catalogue",
+    description: ""
   }
 ];
 
 function App() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
 
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -45,7 +48,7 @@ function App() {
     <ApolloProvider client={client}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleClick}>
+          <IconButton color="inherit" onClick={handleClick}>
             <MenuIcon />
           </IconButton>
           <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
@@ -59,7 +62,7 @@ function App() {
         </Toolbar>
       </AppBar>
       <Container maxWidth="xl">
-        <p>Some Blurb</p>
+        <p>{options[selectedIndex].description}</p>
         <CompoundTable choice={options[selectedIndex].id}/>
       </Container>
     </ApolloProvider>

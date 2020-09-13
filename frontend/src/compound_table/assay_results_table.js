@@ -21,9 +21,11 @@ const GET_ASSAY_RESULTS = gql`
 
 export function AssayResultsTable(props) {
   const { compound_id } = props;
-  const { loading, error, data } = useQuery(GET_ASSAY_RESULTS, {
-    variables: { compound_id },
-  });
+  const { loading, error, data } = useQuery(
+    GET_ASSAY_RESULTS, {
+      variables: { compound_id },
+    }
+  );
 
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
