@@ -21,8 +21,8 @@ class Query(ObjectType):
     headers = List(Header)
     assay_results = List(AssayResultsType, compound_id=ID(), target=String(), result=String())
 
-    def resolve_compounds(self, info):
-        return Compound.objects.all()
+    def resolve_compounds(self, info, **args):
+        return Compound.objects.filter(**args)
 
     def resolve_assay_results(self, info, **args):
         return AssayResult.objects.filter(**args)

@@ -10,7 +10,7 @@ import { AssayResultsTable } from "./assay_results_table";
 
 export function CompoundTableRow(props) {
   const [open, setOpen] = React.useState(false);
-  const { columnOrder, tableData, choice } = props;
+  const { columnOrder, dataRow, choice } = props;
 
   // Create an array with key: id, value: actual path to image
   const reqImages = require.context("../images/", true, /\.png$/)
@@ -23,27 +23,27 @@ export function CompoundTableRow(props) {
   )
 
   // Render the row depending on whether it is an image
-  function CompoundTableCell( {columnName, tableData} ) {
+  function CompoundTableCell( {columnName, dataRow} ) {
     if (choice === "assay_results") {
       if (columnName === "image") {
-        return <TableCell><img src={images[tableData.compound.compound_id]} alt={tableData.compound.molecular_formula}/></TableCell>
+        return <TableCell><img src={images[dataRow.compound.compound_id]} alt={dataRow.compound.molecular_formula}/></TableCell>
       } else if (columnName === "compound_id" ) {
-        return <TableCell>{tableData.compound[columnName]}</TableCell>
+        return <TableCell>{dataRow.compound[columnName]}</TableCell>
       } else {
-        return <TableCell>{tableData[columnName]}</TableCell>
+        return <TableCell>{dataRow[columnName]}</TableCell>
       }
     } else {
       if (columnName === "image") {
-        return <TableCell><img src={images[tableData.id]} alt={tableData.molecular_formula}/></TableCell>
+        return <TableCell><img src={images[dataRow.id]} alt={dataRow.molecular_formula}/></TableCell>
       } else {
-        return <TableCell>{tableData[columnName]}</TableCell>
+        return <TableCell>{dataRow[columnName]}</TableCell>
       }
     }
   }
 
   return (
     <React.Fragment>
-      <TableRow key={tableData.id} className="compound_properties">
+      <TableRow key={dataRow.id} className="compound_properties">
         {choice === "compounds" && (
           <TableCell>
             <IconButton size="small" onClick={() => setOpen(!open)}>
@@ -52,14 +52,14 @@ export function CompoundTableRow(props) {
           </TableCell>
         )}
         {columnOrder.map((columnName) => (
-          <CompoundTableCell key={columnName} columnName={columnName} tableData={tableData}/>
+          <CompoundTableCell key={columnName} columnName={columnName} dataRow={dataRow}/>
         ))}
       </TableRow>
-      <TableRow key={tableData.id+"_assay_results"} className="assay_results">
+      <TableRow key={dataRow.id+"_assay_results"} className="assay_results">
        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={9}>
          <Collapse in={open} timeout="auto" unmountOnExit>
            <Box margin={1}>
-             <AssayResultsTable compound_id={tableData.id}/>
+             <AssayResultsTable compound_id={dataRow.id}/>
            </Box>
          </Collapse>
        </TableCell>

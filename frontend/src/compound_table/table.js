@@ -97,11 +97,11 @@ export function CompoundTable(props) {
   if (loading) return <p>Loading...</p>;
   if (error) return `Error! ${error.message}`;
 
-  var tdata = ""
+  var unsortedData = ""
   if (choice === "assay_results") {
-    tdata = data.assay_results
+    unsortedData = data.assay_results
   } else {
-    tdata = data.compounds
+    unsortedData = data.compounds
   }
 
   // Pagination
@@ -149,22 +149,31 @@ export function CompoundTable(props) {
     return stabilizedThis.map((el) => el[0]);
   }
 
-  const sortedData = stableSort(tdata, getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+  const sortedData = stableSort(unsortedData, getComparator(order, orderBy)).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 
   return (
     <React.Fragment>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25, 100]}
+        component="div"
+        count={sortedData.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+      />
       <Table stickyHeader>
         <CompoundTableHeader order={order} orderBy={orderBy} onRequestSort={handleRequestSort} columnOrder={columnOrder} choice={choice}/>
         <TableBody>
           {sortedData.map((dataRow) => (
-            <CompoundTableRow key={dataRow.id} tableData={dataRow} columnOrder={columnOrder} choice={choice}/>
+            <CompoundTableRow key={dataRow.id} dataRow={dataRow} columnOrder={columnOrder} choice={choice}/>
           ))}
         </TableBody>
       </Table>
       <TablePagination
         rowsPerPageOptions={[5, 10, 25, 100]}
         component="div"
-        count={tdata.length}
+        count={sortedData.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}
