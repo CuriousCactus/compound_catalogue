@@ -28,7 +28,6 @@ export function CompoundTableRow(props) {
       if (columnName === "image") {
         return <TableCell><img src={images[tableData.compound.compound_id]} alt={tableData.compound.molecular_formula}/></TableCell>
       } else if (columnName === "compound_id" ) {
-        console.log(tableData.compound[columnName])
         return <TableCell>{tableData.compound[columnName]}</TableCell>
       } else {
         return <TableCell>{tableData[columnName]}</TableCell>
